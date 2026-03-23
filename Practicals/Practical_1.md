@@ -1,4 +1,4 @@
-# DESIGN A URL SHORTENER
+# Practical 1: Design a URL Shortener
 
 ## Analysis of the Problem Statement
 Both functional and non-functional requirements must be carefully considered in order to solve the challenge. The system must functionally provide dependable redirection and proper URL shortening. It must provide fault tolerance, high availability, and scalability non-functionally. Managing huge read and write requests, keeping latency low, and effectively managing storage over an extended length of time are among the issues brought about by the large size of activities. This emphasizes that creating a distributed system that can effectively map and retrieve massive amounts of data is the main challenge.
