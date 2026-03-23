@@ -1,0 +1,26 @@
+# DESIGN A URL SHORTENER
+
+## Analysis of the Problem Statement
+Both functional and non-functional requirements must be carefully considered in order to solve the challenge. The system must functionally provide dependable redirection and proper URL shortening. It must provide fault tolerance, high availability, and scalability non-functionally. Managing huge read and write requests, keeping latency low, and effectively managing storage over an extended length of time are among the issues brought about by the large size of activities. This emphasizes that creating a distributed system that can effectively map and retrieve massive amounts of data is the main challenge.
+
+## Analysis of the Proposed Solution
+The author suggests an organized approach that starts with a high-level design that incorporates RESTful API endpoints for URL redirection and shortening. It is consistent with typical web practices to utilize GET queries to retrieve original URLs and POST requests to create short URLs. An important trade-off between lowering server load and enabling analytics tracking can be seen by the topic of HTTP status codes, particularly 301 (permanent redirect) and 302 (temporary redirect). Although a combination of the two ways could improve the solution, this shows a realistic grasp of real-world system considerations.
+
+The author first suggests utilizing a hash table for data storage, but eventually switches to a relational database because of memory and scalability issues. The suggested table format is straightforward but efficient, with an ID, short URL, and long URL. Nevertheless, alternative database systems like NoSQL, which can provide greater scalability in remote contexts, are not investigated by the solution.
+
+The hash function that creates short URLs is a crucial component of the architecture. The author assesses two methods: Base62 encoding and hashing with collision resolution. The first method is less effective because it creates the issue of collisions and requires additional database checks. A unique numerical ID is transformed into a brief alphanumeric string using the second method, Base62 encoding. This approach is a good design decision since it is more effective, prevents collisions, and enhances system performance.
+
+The method used for shortening URLs is well-defined; it involves looking for already-existing URLs, creating unique IDs, transforming them into short URLs, and saving them in the database. Similar to this, the URL redirection process makes advantage of caching to enhance efficiency, which works especially well in systems that rely heavily on reading. Despite being a powerful optimization, the design lacks information regarding failure handling and cache management techniques.
+
+## Understanding
+According to what I understand, the system functions as a large-scale key-value store, with the long URL serving as the value and the short URL serving as the key. The design is made simpler by using Base62 encoding, which also removes the need for complex collision handling. Additionally, by lowering database demand, caching greatly enhances performance. The design illustrates how straightforward ideas necessitate careful consideration of system architecture, storage, and performance when implemented at scale.
+
+## Further Topics for Exploration
+In my opinion, this chapter has presented a number of significant ideas that I would like to learn more about in order to enhance my understanding of system design. Distributed unique ID generation is one of my main areas of interest, especially how systems make sure that IDs stay distinct across several servers without causing conflicts. I'm particularly curious to know how methods like Snowflake are applied in practical systems.
+
+I also wish to learn more about database design decisions, especially the distinctions between relational (SQL) and non-relational (NoSQL) databases. In the context of highly scalable systems like a URL shortener, I would like to investigate when it is more acceptable to employ one over the other.
+
+Additionally, as database sharding and replication strategies are necessary for effectively managing massive amounts of data, I'm curious to learn more about them. Since they are crucial to preserving system performance, security, and dependability, I would like to learn more about subjects like load balancing, rate limiting, and analytics system architecture.
+
+## Brief Summary of Critical Analysis
+In conclusion, by covering important elements including API design, data storage, hashing methods, and system scalability, the chapter offers an organized method for creating a scalable URL shortening system. Caching and Base62 encoding are efficient ways to improve performance and get rid of problems like hash collisions. A solid knowledge of managing large-scale, read-intensive systems is evident in the architecture. Yet, the solution is still somewhat high-level and does not go into great detail about things like distributed ID generation, database selection, security issues, and analytics implementation. Overall, the suggested design is useful and appropriate for interview situations, but it also identifies a number of crucial issues that need more investigation for the development of real-world systems.
